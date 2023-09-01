@@ -3,14 +3,32 @@
   "engines": {
     "node": ">=18"
   },
+  "exports": {
+    "./webcomponents/bread-crumbs": {
+      "import": "./public/bread-crumbs.es.js",
+      "require": "./public/bread-crumbs.umd.js",
+      "types": "./public/bread-crumbs.d.ts"
+    },
+    "./webcomponents/nav-links": {
+      "import": "./public/nav-links.es.js",
+      "require": "./public/nav-links.umd.js",
+      "types": "./public/nav-links.d.ts"
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build:wc": "node vite-build.mjs"
   },
   "dependencies": {
+    "@r2wc/react-to-web-component": "^2.0.2",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.4",
+    "vite": "^4.4.9"
   }
 }
