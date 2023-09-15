@@ -8,6 +8,19 @@ import NavLinks from '../wrappers/NavLinks';
 import { PrefetchRequestEvent, RouteRequestEvent } from '../types/NavLinks';
 import { RouteChangeEvent } from '../types/Breadcrumbs';
 
+const tokens = {
+  $title: "Home",
+  "foo": {
+    $title: "Foo Component",
+    bar: {
+      $title: "Bar Page"
+    },
+  },
+  baz: {
+    $title: "Baz Component"
+  }
+};
+
 export default function Home() {
 
   const [lastError, setLastError] = useState<string | null>(null);
@@ -46,7 +59,7 @@ export default function Home() {
   useEffect(() => {
     const ev: RouteChangeEvent = new CustomEvent("routechange", {
       detail: {
-        url: "/" + (routeAsPath ?? "")
+        url: routeAsPath
       }
     });
 
@@ -61,8 +74,10 @@ export default function Home() {
       </Head>
 
       <main>
+        <h1>This is an external app that consumes the breadcrumb and nav-links Web components</h1>
+        
         <p>Bread Crumbs</p>
-        <Breadcrumbs routeRoot="/" initialRoute={routeAsPath} />
+        <Breadcrumbs routeRoot="/" initialRoute={routeAsPath} tokens={tokens} />
         <hr/>
 
         <p>Nav Links</p>

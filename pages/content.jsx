@@ -18,6 +18,8 @@ import PageContent from '../wrappers/PageContent';
 //   () => import("../wrappers/PageContent")
 // );
 
+const tokens = { $title: "Content" }
+
 export default function Content() {
 
   const [lastError, setLastError] = useState(null);
@@ -61,12 +63,14 @@ export default function Content() {
       </Head>
 
       <main>
+        <h1>This is an external app that consumes the breadcrumb and nav-links Web components</h1>
+      
         <p>Bread Crumbs</p>
-        <Breadcrumbs routeRoot="/" initialRoute="/content" />
+        <Breadcrumbs routeRoot="/content" initialRoute="/content" tokens={tokens} />
         <hr/>
 
         <p>Nav Links</p>
-        <NavLinks routeRoot="/" initialRoute="/content" navLinksRef={navLinksRef} />
+        <NavLinks routeRoot="/content" initialRoute="/content" navLinksRef={navLinksRef} />
 
         <p>Page Content</p>
         <PageContent />
