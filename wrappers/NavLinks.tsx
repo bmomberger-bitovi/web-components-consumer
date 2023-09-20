@@ -13,9 +13,10 @@ declare global {
 const NavLinks = function({
   routeRoot,
   initialRoute,
+  navLinksRef,
   onRouteRequest,
   onPrefetchRequest
-}: Parameters<typeof BaseNavLinks>[0]
+}: (Parameters<typeof BaseNavLinks>[0] & { navLinksRef: React.MutableRefObject<HTMLElement | null> })
 ): ReturnType<typeof BaseNavLinks> {
   const [routeRequestId, setRouteRequestId] = useState("");
   const [prefetchRequestId, setPrefetchRequestId] = useState("");
@@ -41,6 +42,7 @@ const NavLinks = function({
       <nav-links
         route-root={routeRoot}
         initial-route={initialRoute}
+        ref={navLinksRef}
         on-route-request={routeRequestId}
         on-prefetch-request={prefetchRequestId} 
       />
