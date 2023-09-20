@@ -38,7 +38,7 @@ const NavLinks = function({
 
   return (
     <>
-      {global.customElements && customElements.get("nav-links") ? null : <Script src="https://6f8b-68-187-209-164.ngrok-free.app/nav-links.umd.js" type="module"/>}
+      {global.customElements && customElements.get("nav-links") ? null : <Script src={`${process.env.NEXT_PUBLIC_WEB_COMPONENTS_HOST}/nav-links.umd.js`} type="module"/>}
       <nav-links
         route-root={routeRoot}
         initial-route={initialRoute}

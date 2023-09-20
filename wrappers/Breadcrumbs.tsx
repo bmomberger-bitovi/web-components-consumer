@@ -16,7 +16,7 @@ const Breadcrumbs: typeof BaseBreadcrumbs = function({
 }) {
   return (
     <>
-      {global.customElements && customElements.get("bread-crumbs") ? null : <Script src="https://6f8b-68-187-209-164.ngrok-free.app/bread-crumbs.umd.js" type="module"/>}
+      {global.customElements && customElements.get("bread-crumbs") ? null : <Script src={`${process.env.NEXT_PUBLIC_WEB_COMPONENTS_HOST}/bread-crumbs.umd.js`} type="module"/>}
       <bread-crumbs route-root={routeRoot} initial-route={initialRoute} tokens={JSON.stringify(tokens)} />
     </>
   )
