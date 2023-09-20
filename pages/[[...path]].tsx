@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from '../styles/Home.module.css';
 import Breadcrumbs from '../wrappers/Breadcrumbs';
 import NavLinks from '../wrappers/NavLinks';
-import { PrefetchRequestEvent, RouteRequestEvent } from '../types/NavLinks';
+// import { PrefetchRequestEvent, RouteRequestEvent } from '../types/NavLinks';
 import { RouteChangeEvent } from '../types/Breadcrumbs';
 
 const tokens = {
@@ -27,32 +27,32 @@ export default function Home() {
   const router = useRouter();
   const navLinksRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const handler = (ev: RouteRequestEvent) => {
-      if (ev.detail.href.includes("invalid")) {
-        setLastError(`Invalid route detected: ${ev.detail.href}`);
+  // useEffect(() => {
+    const handler = (url: string) => {
+      if (url.includes("invalid")) {
+        setLastError(`Invalid route detected: ${url}`);
       } else {
-        router.push(ev.detail.href);
+        router.push(url);
         setLastError(null);
       }
     };
-    const pfHandler = (ev: PrefetchRequestEvent) => {
-      if (!ev.detail.href.includes("invalid")) {
-         router.prefetch(ev.detail.href);
+    const pfHandler = (url: string) => {
+      if (!url.includes("invalid")) {
+         router.prefetch(url);
       }
     };
 
-    if(navLinksRef.current) {
-      const currentRef = navLinksRef.current;
-      currentRef.addEventListener("routerequest", handler);
-      currentRef.addEventListener("prefetchrequest", pfHandler);
-      return () => {
-        currentRef.removeEventListener("routerequest", handler);
-        currentRef.removeEventListener("prefetchrequest", pfHandler);
-      }
-    }
+    // if(navLinksRef.current) {
+    //   const currentRef = navLinksRef.current;
+    //   currentRef.addEventListener("routerequest", handler);
+    //   currentRef.addEventListener("prefetchrequest", pfHandler);
+    //   return () => {
+    //     currentRef.removeEventListener("routerequest", handler);
+    //     currentRef.removeEventListener("prefetchrequest", pfHandler);
+    //   }
+    // }
 
-  }, [navLinksRef.current]);
+  // }, [navLinksRef.current]);
 
   const routeAsPath = `/${(router.query.path as string[] | undefined)?.join("/") ?? ""}`;
 
@@ -81,7 +81,7 @@ export default function Home() {
         <hr/>
 
         <p>Nav Links</p>
-        <NavLinks routeRoot="/" initialRoute={routeAsPath} navLinksRef={navLinksRef} />
+        <NavLinks routeRoot="/" initialRoute={routeAsPath} onRouteRequest={handler} onPrefetchRequest={pfHandler} />
       </main>
 
       <footer>
